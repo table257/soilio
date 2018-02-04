@@ -2,6 +2,7 @@
 
 import json
 from Environment import *
+import os
 
 class Phase:
     def __init__(self, water=Water(), N=N(), P=P(), K=K(), unicode=""):
@@ -26,30 +27,41 @@ class Species:
         self.pH = pH
         self.temperature = Temperature
 
-    def jsonToSpecies(self, name):
-        file = "../../assets/" + name + ".json"
+    def makeSpeciesFromJSON(name):
+        file = "../../assets/plants/" + name + ".json"
         with open(file, 'r') as f:
         	x = json.load(f)
-        self.name = x["name"]
-        self.hardiness = x["hardiness"]
-        self.pH = pH(**x["pH"]) 
-        self.temperature = Temperature(**x["t"])
+       	spec = Species()
+        spec.name = x["name"]
+        spec.hardiness = x["hardiness"]
+        spec.pH = pH(**x["pH"]) 
+        spec.temperature = Temperature(**x["t"])
         phasesData = x["phases"]
         for data in phasesData:
         	phase = Phase()
         	phase.jsonToPhase(data)
-        	self.phases.append(phase)
+        	spec.phases.append(phase)
+       	return spec
 
-    def speciesToJSON(self):
+    def speciesToDict(self):
         x = {'name':self.name,'hardiness':self.hardiness,'phases':self.phases,'pH':self.pH.__dict__}
-        return json.dumps(x, separators=(',',':'), ensure_ascii=False)
+        return x
+        #return json.dumps(x, separators=(',',':'), ensure_ascii=False)
+    
+    def getSpeciesList():
+        specList = []
+        for file in os.listdir("../../assets/plants/"):
+            if file.endswith(".json"):
+            	spec = Species.makeSpeciesFromJSON((file[0:(len(file)-5)]))
+            	specList.append(spec)
+        return specList
+
 
 class Plant:
     def __init__(self, species=Species(), curPhase = Phase()):
         self.species = species
         self.curHealth = species.hardiness
         self.curPhase = len(species.phases)
-
 
 #corn = Species()
 #data='{"name":"corn","hardiness":15,"phases":[{"water":{"min":1,"max":4},"N":{"min":4,"max":5},"P":{"min":0.4,"max":0.6},"K":{"min":3,"max":5},"unicode":"ஃ"},{"water":{"min":3,"max":7},"N":{"min":3,"max":5},"P":{"min":0.3,"max":0.5},"K":{"min":2,"max":4},"unicode":"ɾ"},{"water":{"min":5,"max":10},"N":{"min":2,"max":4},"P":{"min":0.4,"max":0.5},"K":{"min":2,"max":4},"unicode":"ʇ"},{"water":{"min":4,"max":12},"N":{"min":2.75,"max":3.75},"P":{"min":0.3,"max":0.5},"K":{"min":1,"max":5},"unicode":"ʬ"}],"pH":{"min":5.8,"max":7  }}'

@@ -1,69 +1,69 @@
 {
-    "name":"Mango",
-    "hardiness":12,
+    "name":"Cabbage",
+    "hardiness":25,
     "t":{
-        "min":10,
-        "tmax":44
+        "min":7,
+        "max":26
     },
     "pH":{
         "min":6,
-        "max":7.2
+        "max":7.5
    },
     "phases":[
         {
         "water":{
             "min":1,
-            "max":5
+            "max":4
         },
         "N":{
-            "min":5,
+            "min":4,
             "max":8
         },
         "P":{
-            "min":0.0,
-            "max":1.2
+            "min":0.5,
+            "max":0.6
         },
         "K":{
-            "min":0,
-            "max":11
+            "min":1,
+            "max":5
         },
         "unicode":"^"
       },
       {
         "water":{
-            "min":3,
-            "max":7
+            "min":2,
+            "max":6
         },
         "N":{
             "min":3,
-            "max":10
+            "max":7
         },
         "P":{
-            "min":0.4,
-            "max":1.1
+            "min":0.2,
+            "max":0.7
         },
         "K":{
-            "min":4,
-            "max":8
+            "min":1,
+            "max":3
         },
         "unicode":"ɾ"
       },
       {
         "water":{
-            "min":3,
-            "max":7
+            "min":2,
+            "max":4
         },
         "N":{
-            "min":6,
-            "max":12
+            "min":2,
+            "max":3
         },
         "P":{
-            "min":0.2,
-            "max":1.1
+            "min":0.1,
+            "max":0.6
         },
         "K":{
-            "min":5,
-            "max":8
+            "min":1,
+            "max":5
         },
         "unicode":"ʇ"
       }

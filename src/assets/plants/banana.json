@@ -1,69 +1,69 @@
 {
-    "name":"W33d",
-    "hardiness":7,
+    "name":"Banana",
+    "hardiness":10,
     "t":{
-        "min":14,
-        "tmax":31
+        "min":13,
+        "max":37
     },
     "pH":{
-        "min":5.8,
+        "min":5.5,
         "max":6.5
    },
     "phases":[
         {
         "water":{
-            "min":3,
+            "min":2,
             "max":5
         },
         "N":{
-            "min":1,
-            "max":4
+            "min":2,
+            "max":7
         },
         "P":{
-            "min":0.2,
-            "max":0.3
+            "min":0.5,
+            "max":0.8
         },
         "K":{
-            "min":3,
-            "max":5
+            "min":4,
+            "max":7
         },
         "unicode":"^"
       },
       {
         "water":{
-            "min":2,
-            "max":4
+            "min":4,
+            "max":9
         },
         "N":{
-            "min":2,
-            "max":3
+            "min":3,
+            "max":6
         },
         "P":{
-            "min":0.2,
-            "max":0.4
+            "min":0.4,
+            "max":0.7
         },
         "K":{
-            "min":2,
-            "max":5
+            "min":3,
+            "max":7
         },
         "unicode":"ɾ"
       },
       {
         "water":{
-            "min":2,
-            "max":5
+            "min":3,
+            "max":8
         },
         "N":{
             "min":2,
-            "max":5
+            "max":7
         },
         "P":{
-            "min":0.1,
-            "max":0.4
+            "min":0.4,
+            "max":0.7
         },
         "K":{
             "min":2,
-            "max":4
+            "max":5
         },
         "unicode":"ʇ"
       }
