@@ -1,6 +1,8 @@
 import curses
 import time, traceback
-import scenes
+from .scenes.scene import Scene
+from .scenes.scene_menu import SceneMenu
+from .scenes.scene_farm import SceneFarm
 
 class SceneLoader:
     def __init__(self):
@@ -23,8 +25,8 @@ class SceneLoader:
             self.screen.refresh()
             time.sleep(2)
             unload()
-        self.scenes_list.append(scenes.SceneMenu(self.screen))
-        self.scenes_list.append(scenes.SceneFarm(self.screen))
+        self.scenes_list.append(SceneMenu(self.screen))
+        self.scenes_list.append(SceneFarm(self.screen))
         scene_index = 0
         while scene_index != -1:
             self.scenes_list[scene_index].load()
