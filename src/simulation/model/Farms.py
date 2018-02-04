@@ -67,7 +67,7 @@ class Plot:
         self.pH = pH
         self.drainage = drainage
 
-    def makePlot(region : Region):
+    def makePlot(region):
         plot = Plot()
         plot.N = random.randint(region.N.min, region.N.max)
         plot.P = round(random.uniform(region.P.min, region.P.max), 2)
@@ -83,8 +83,9 @@ class Plot:
             x = {'water':self.water,'pH':self.pH, 'N':self.N, 'P':self.P, 'K':self.K, 'Drainage':self.drainage}
         return x
 
-    def plantPlant(self, plant):
-        self.plant = plant
+
+    #def waterPlant(self, water):
+
 
 class Farm:
     def __init__(self):
@@ -94,7 +95,7 @@ class Farm:
         self.cycles = [None]
         self.curCycle = self.cycles[0]
 
-    def makeFarm(regionStr : str, path):
+    def makeFarm(regionStr, path):
         reg = Region.makeRegion(regionStr, path)
         farm = Farm()
         farm.region = reg

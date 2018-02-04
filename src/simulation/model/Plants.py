@@ -28,7 +28,7 @@ class Species:
         self.temperature = Temperature
 
     def makeSpeciesFromJSON(name):
-        file = "../../assets/plants/" + name + ".json"
+        file = "../assets/plants/" + name + ".json"
         with open(file, 'r') as f:
         	x = json.load(f)
        	spec = Species()
@@ -50,7 +50,7 @@ class Species:
     
     def getSpeciesList():
         specList = []
-        for file in os.listdir("../../assets/plants/"):
+        for file in os.listdir("../assets/plants/"):
             if file.endswith(".json"):
             	spec = Species.makeSpeciesFromJSON((file[0:(len(file)-5)]))
             	specList.append(spec)
