@@ -9,7 +9,7 @@ def startNew(reg):
     farm = model.Farms.Farm.makeFarm(reg, "../assets/regions.json")
     return farm
 
-def iterate():
+def iterate():    
     pass
 
 def plant(newPlant, plot):
@@ -19,16 +19,20 @@ def pick(plot):
     if plot.plant == None:
         return None
     else:
-        plant = plot.plant;
+        plant = plot.plant
         plot.plant = None
         return plant
 
+# input: plot object & amount of water to add
+# returns amount of water in the plot now
 def addWater(plot, amtWater):
     plot.water = plot.water + amtWater
     return plot.water
 
-def fertilize(plot):
-    pass
+def fertilize(plot, n, p, k):
+    plot.N = plot.N + n
+    plot.P = plot.P + p
+    plot.K = plot.K + k
 
 def iterate(farm : Farm):
     farm.curIter += 1
