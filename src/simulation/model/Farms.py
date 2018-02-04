@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import json
+import random
 from Environment import *
 from Plants import Plant
 
@@ -12,16 +13,53 @@ class Cycle:
         self.temperature = temperature
         self.daylight = daylight
 
+    def jsonToCycle(self, data):
+    	self.name = data["name"]
+    	self.length = data["length"]
+    	self.precipitation = Precipitation(**data["p"])
+    	self.temperature = Temperature(**data['t'])
+    	self.daylight = Daylight(**data['dl'])
+
 class Region:
-    def __init__(self, name="", drainage=0, pH=pH(), cycles=[]):
+    def __init__(self, name="", drainage=0, pH=pH(), cycles=[], N=N(), P=P(), K=K()):
         self.name = name
         self.drainage = drainage
         self.pH = pH
-        self.cycles = cyles
+        self.cycles = cycles
+        self.N = N
+        self.P = P
+        self.K = K
+
+    def makeRegion(name):
+    	reg = Region()
+    	with open("../../assets/regions.json", 'r') as f:
+    		data = json.load(f)
+    		data = data["Regions"]
+    	if name == 'arid':
+    		data = data[0]
+    	elif name == 'temperate':
+    		data = data[1]
+    	elif name == 'boreal':
+    		data = data[2]
+    	else:
+    		print("error, unknown region specified. (currently) Accepted regions: arid, temperate, boreal.")
+    		exit(-1)
+    	reg.name = name
+    	reg.drainage = Drainage(**data["drainage"])
+    	reg.pH = pH(**data["pH"])
+    	reg.N = N(**data["N"])
+    	reg.P = P(**data["P"])
+    	reg.K = K(**data["K"])
+    	cycleData = data["cycles"]
+    	for curCycle in cycleData:
+    		cycle = Cycle()
+    		cycle.jsonToCycle(curCycle)
+    		reg.cycles.append(cycle)
+    	return reg
 
 class Plot:
-    def __init__(self, plant=Plant(), water=Water(), N=N(), P=P(), K=K(), pH=pH(), drainage=Drainage()):
-        self.plant = plant
+    def __init__(self, plant=Plant(), water=0, N=0, P=0.0, K=0, pH=0, drainage=0):
+        self.plant = None
         self.water = water
         self.N = N
         self.P = P
@@ -29,5 +67,38 @@ class Plot:
         self.pH = pH
         self.drainage = drainage
 
+    def makePlot(region : Region):
+        plot = Plot()
+        plot.N = random.randint(region.N.min, region.N.max)
+        plot.P = round(random.uniform(region.P.min, region.P.max), 2)
+        plot.K = random.randint(region.K.min, region.K.max)
+        plot.pH = round(random.uniform(region.pH.min, region.pH.max), 2)
+        plot.drainage = random.randint(region.drainage.min, region.drainage.max)
+        return plot
+
+    def stats(self):
+        if (self.plant != None):
+            x = {'Plant name':self.plant.species.name,'Plant health':self.plant.curHealth ,'water':self.water,'pH':self.pH, 'N':self.N, 'P':self.P, 'K':self.K, 'Drainage':self.drainage}
+        else:
+            x = {'water':self.water,'pH':self.pH, 'N':self.N, 'P':self.P, 'K':self.K, 'Drainage':self.drainage}
+        return x
+
+    def plantPlant(self, plant):
+        self.plant = plant
+
 class Farm:
-    def __init__(self, plots=[], )
+    def __init__(self, region=Region()):
+        self.plots = []
+        self.curIter = 0;
+        self.cycles = region.cycles
+        self.curCycle = self.cycles[0]
+        for i in range (0, 300):
+            plot = Plot.makePlot(region)
+            self.plots.append(plot)
+
+    def makeFarm(region : str):
+        farm = Farm(Region.makeRegion(region))
+        return farm
+
+       
+
