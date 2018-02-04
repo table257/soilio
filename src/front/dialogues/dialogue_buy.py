@@ -3,7 +3,7 @@ from .dialogue import Dialogue
 import time
 
 class DialogueBuy(Dialogue):
-    def __init__(self, window, species_list = ["nothing", "nothing2"]):
+    def __init__(self, window, species_list):
         super().__init__(window)
         self.species_list = species_list
         self.shopping = {}
@@ -29,39 +29,44 @@ class DialogueBuy(Dialogue):
         self.window.addstr(18, 2, "q: quit".ljust(36), curses.color_pair(1))
     
     def draw_list(self):
+        if (len(self.species_list) == 0):
+            return
         for i in range(len(self.species_list)):
             if (i > 10):
                 break # we dont have scrolling
             self.window.addstr(3+i, 2,
                 " "+str(self.shopping[self.species_list[i]]).center(3)+" ", curses.color_pair(1))
             self.window.addstr(3+i, 7,
-                " x "+self.species_list[i].ljust(28), curses.color_pair(1))
+                " x "+self.species_list[i].name.ljust(28), curses.color_pair(1))
         self.window.addstr(3+self.sel, 2,
             "-"+str(self.shopping[self.species_list[self.sel]]).center(3)+"+", curses.color_pair(2))
         self.window.addstr(3+self.sel, 7,
-            " x "+self.species_list[self.sel].ljust(28), curses.color_pair(2))
+            " x "+self.species_list[self.sel].name.ljust(28), curses.color_pair(2))
     
     def update(self):
         while True:
             self.draw_list()
             self.window.refresh()
             ch = self.window.getch()
-            if (ch == curses.KEY_DOWN):
+            if (ch == curses.KEY_DOWN and len(self.species_list) > 0):
                 self.sel = self.sel + 1
                 if (self.sel >= len(self.species_list)):
                     self.sel = len(self.species_list) - 1
-            elif (ch == curses.KEY_UP):
+            elif (ch == curses.KEY_UP and len(self.species_list) > 0):
                 self.sel = self.sel - 1
                 if (self.sel < 0):
                     self.sel = 0
-            elif (ch == curses.KEY_LEFT):
+            elif (ch == curses.KEY_LEFT and len(self.species_list) > 0):
                 self.shopping[self.species_list[self.sel]] = self.shopping[self.species_list[self.sel]] - 1
                 if (self.shopping[self.species_list[self.sel]] < 0):
                     self.shopping[self.species_list[self.sel]] = 0
-            elif (ch == curses.KEY_RIGHT):
+            elif (ch == curses.KEY_RIGHT and len(self.species_list) > 0):
                 self.shopping[self.species_list[self.sel]] = self.shopping[self.species_list[self.sel]] + 1
             elif (ch == ord("q")):
                 return 0
+
+    def get_shopping(self):
+        return self.shopping
 
     def unload(self):
         self.window.keypad(False)

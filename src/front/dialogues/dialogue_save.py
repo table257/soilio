@@ -51,7 +51,7 @@ class DialogueSave(Dialogue):
                 if (self.sel < 0):
                     self.sel = 0
             elif (ch == ord(' ')):
-                self.flash_name(0.25, 3)
+                self.flash_name(0.2, 3)
                 return 0
     
     def unload(self):
