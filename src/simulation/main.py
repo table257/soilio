@@ -5,24 +5,27 @@ def startLoad(path):
     return farm
 
 # returns new farm of type 'arid', 'temperate', or 'boreal'
-def startNew(reg : str):
+def startNew(reg):
     farm = model.Farms.Farm.makeFarm(reg, "../assets/regions.json")
     return farm
 
 def iterate():
     pass
 
-def plant(plant, plot):
-    pass
+def plant(newPlant, plot):
+    plot.plant = newPlant
  
 def pick(plot):
-    pass
+    if plot.plant == None:
+        return None
+    else:
+        plant = plot.plant;
+        plot.plant = None
+        return plant
 
-def water(plot):
-    pass
+def addWater(plot, amtWater):
+    plot.water = plot.water + amtWater
+    return plot.water
 
 def fertilize(plot):
     pass
-
-farmy = startNew('arid')
-print(farmy.region)
