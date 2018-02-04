@@ -3,7 +3,7 @@
     "hardiness":12,
     "t":{
         "min":10,
-        "tmax":44
+        "max":44
     },
     "pH":{
         "min":6,

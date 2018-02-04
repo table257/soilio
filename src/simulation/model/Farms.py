@@ -87,18 +87,34 @@ class Plot:
         self.plant = plant
 
 class Farm:
-    def __init__(self, region=Region()):
-        self.plots = []
+    def __init__(self):
+        self.plots = [None]*300
+        self.region = None
         self.curIter = 0;
-        self.cycles = region.cycles
+        self.cycles = [None]
         self.curCycle = self.cycles[0]
-        for i in range (0, 300):
-            plot = Plot.makePlot(region)
-            self.plots.append(plot)
 
-    def makeFarm(region : str):
-        farm = Farm(Region.makeRegion(region))
+    def makeFarm(regionStr : str):
+        reg = Region.makeRegion(regionStr)
+        farm = Farm()
+        farm.region = reg
+        farm.cycles = reg.cycles
+        for i in range(0, 300):
+            farm.plots[i] = Plot.makePlot(reg)
+        return farm
+      
+    def farmFromJson(path):
+        farm = Farm()
+        with open(path, 'r') as f:
+            fdata = json.load(f)
+        farm.plots = fdata["plots"]
+        farm.region = fdata["region"]
+        farm.curIter = fdata["curIter"]
+        farm.cycles = fdata["cycles"]
+        farm.curCycle = fdata["curCycles"]
         return farm
 
-       
+
+
+
 
