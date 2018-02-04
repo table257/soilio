@@ -2,8 +2,8 @@
 
 import json
 import random
-from Environment import *
-from Plants import Plant
+from .Environment import *
+from .Plants import Plant
 
 class Cycle:
     def __init__(self, name="", length=0, precipitation=Precipitation(), temperature=Temperature(), daylight=Daylight()):
@@ -30,9 +30,9 @@ class Region:
         self.P = P
         self.K = K
 
-    def makeRegion(name):
+    def makeRegion(name, path):
     	reg = Region()
-    	with open("../../assets/regions.json", 'r') as f:
+    	with open(path, 'r') as f:
     		data = json.load(f)
     		data = data["Regions"]
     	if name == 'arid':
@@ -94,8 +94,8 @@ class Farm:
         self.cycles = [None]
         self.curCycle = self.cycles[0]
 
-    def makeFarm(regionStr : str):
-        reg = Region.makeRegion(regionStr)
+    def makeFarm(regionStr : str, path):
+        reg = Region.makeRegion(regionStr, path)
         farm = Farm()
         farm.region = reg
         farm.cycles = reg.cycles
