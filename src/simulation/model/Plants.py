@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import json
-from Environment import *
+from .Environment import *
 import os
 
 class Phase:
