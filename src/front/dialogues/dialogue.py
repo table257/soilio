@@ -1,6 +1,6 @@
 class Dialogue:
     def __init__(self, window):
-        pass
+        self.window = window
 
     def load(self):
         pass

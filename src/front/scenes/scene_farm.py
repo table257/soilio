@@ -82,7 +82,7 @@ class SceneFarm:
             elif (ch == ord('q')):
                 self.screen.addstr(22, 1, "quitting...".ljust(78), curses.color_pair(1))
                 self.screen.refresh()
-                time.sleep(0.5)
+                time.sleep(0.25)
                 return 0
 
     def unload(self):

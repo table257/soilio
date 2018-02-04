@@ -1,5 +1,6 @@
 import curses
 from .scene import Scene
+from ..dialogues.dialogue_save import DialogueSave
 
 class SceneMenu(Scene):
     def __init__(self, screen):
@@ -32,7 +33,13 @@ class SceneMenu(Scene):
                 if (self.sel < 0):
                     self.sel = 0
             elif (ch == ord(' ')):
-                if (self.sel == 0 or self.sel == 1):
+                if (self.sel == 0):
+                    return 1
+                if (self.sel == 1):
+                    save = DialogueSave(curses.newwin(7, 60, 8, 10))
+                    save.load()
+                    save.update()
+                    save.unload()
                     return 1
                 else:
                     return -1
