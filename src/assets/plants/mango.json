@@ -27,7 +27,7 @@
             "min":0,
             "max":11
         },
-        "unicode":"^"
+        "unicode":"i"
       },
       {
         "water":{
@@ -46,7 +46,7 @@
             "min":4,
             "max":8
         },
-        "unicode":"ɾ"
+        "unicode":"I"
       },
       {
         "water":{
@@ -65,7 +65,7 @@
             "min":5,
             "max":8
         },
-        "unicode":"ʇ"
+        "unicode":"%"
       }
    ]
 }
