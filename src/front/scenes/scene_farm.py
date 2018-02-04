@@ -1,6 +1,7 @@
 import curses, time
 from .scene import Scene
 from ..dialogues.dialogue_buy import DialogueBuy
+from ..dialogues.dialogue_plant import DialoguePlant
 
 class SceneFarm:
     def __init__(self, screen):
@@ -74,7 +75,13 @@ class SceneFarm:
                 if (self.sel < 0):
                     self.sel = 0
             elif (ch == ord('b')):
-                buy = DialogueBuy(curses.newwin(20, 40, 2, 20))
+                buy = DialogueBuy(curses.newwin(20, 40, 2, 20), [])
+                buy.load()
+                buy.update()
+                buy.unload()
+                self.draw_everything()
+            elif (ch == ord('p')):
+                buy = DialoguePlant(curses.newwin(20, 40, 2, 20), {})
                 buy.load()
                 buy.update()
                 buy.unload()
